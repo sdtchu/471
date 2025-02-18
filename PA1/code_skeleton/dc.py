@@ -34,9 +34,17 @@ class DC(search.Problem):
     def __init__(self, initial='dog', goal='cat', cost='steps'):
         #TODO: complete this
         # set instance attributes ...
-        pass
+        self.initial = initial.lower()
+        self.goal = goal.lower() 
+        self.cost = cost
         # make sure arguments are legal, raising an error if any are bad.
-        pass
+        if (len(initial) != len(goal) or
+            initial not in dictionary or
+            goal not in dictionary):
+            raise ValueError("Bad initial or goal state")
+        
+        if (cost != 'steps' or cost != 'scrabble' or cost != 'frequency'):
+            raise ValueError("Bad cost method")
 
     def actions(self, state):
         #TODO: complete this
@@ -47,7 +55,11 @@ class DC(search.Problem):
         should not be the same as the state, i.e., don't replace a
         character with the same character """
 
-        pass
+        to_add = []
+        alpha = "abcdefghijklmnopqrstuvwxyz"
+        
+
+        
 
     def result(self, state, action):
         #TODO: complete this
@@ -56,8 +68,10 @@ class DC(search.Problem):
 
     def goal_test(self, state):
         #TODO: complete this
-        """ returns True iff state is a goal state for this problem instance """
-        pass
+        """ returns True iff state is a goal state for this problem instance """ 
+        if (state == self.goal):
+            return True
+        return False
 
     def path_cost(self, c, state1, action, state2):
         #TODO: complete this
