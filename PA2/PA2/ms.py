@@ -78,9 +78,19 @@ def MS(n:int, magic_sum:int, solver:c.Solver)->list:
     for v in positions.values():
         for group in v:
             print(group)
-            prob.addVariables(positions, domain)
+            prob.addVariables(group, domain)
      
             for sln in prob.getSolutions():
                 solutions.append(sln)
 
     return solutions 
+
+
+
+
+
+
+
+
+
+
