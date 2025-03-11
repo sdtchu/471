@@ -66,9 +66,10 @@ def MS(n:int, magic_sum:int, solver:c.Solver)->list:
 
     # init problem
     prob = c.Problem(solver)
+    prob.addVariables(range(0, n**2), range(1, (n**2)+1))
+
     # add constraint so that each solution needs the exact sum to be the magic sum
-    prob.addConstraint(c.ExactSumConstraint(magic_sum))
-    prob.addConstraint(c.AllDifferentConstraint())
+    prob.addConstraint(c.AllDifferentConstraint(), range(0, n**2))
     
     # the size of the square
     positions = init_positions(n=n)
@@ -77,11 +78,9 @@ def MS(n:int, magic_sum:int, solver:c.Solver)->list:
 
     for v in positions.values():
         for group in v:
-            print(group)
-            prob.addVariables(group, domain)
-     
-            for sln in prob.getSolutions():
-                solutions.append(sln)
+            prob.addConstraint(c.ExactSumConstraint(magic_sum), group)
+    
+    solutions = prob.getSolutions()
 
     return solutions 
 
